@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
+<title>Clientes</title>
+
+<!--JQUERY-->
+	<script
+ 		src="https://code.jquery.com/jquery-3.3.1.min.js"
+ 			integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+ 			crossorigin="anonymous"></script>
+ 	
+ 	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script 
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet"
+		href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+	<script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="static/css/user-form.css"
+		th:href="@{/css/user-form.css}">
+	
+	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">	
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+
+	<script type="text/javascript">
+	    $(document).ready(function() {
+	        $('#clienteList').DataTable();
+	        $('#convenioList').DataTable();
+	    } );
+	</script>
+
+</head>
+<body>
+	<div class="container">
+	<div class="mx-auto col-sm-8 main-section" id="myTab" role="tablist">
+		<ul class="nav nav-tabs justify-content-end">
+			<li class="nav-item">
+			<a class="nav-link " th:classappend=" ${listTab}" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list" aria-selected="false">Lista Clientes</a>
+			</li>
+			<li class="nav-item">
+			<a class="nav-link" th:classappend=" ${formTab}" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="true">Clientes</a>				   	
+			</li>
+			<li class="nav-item">
+			<a class="nav-link" th:classappend=" ${formbTab}" id="formb-tab" data-toggle="tab" href="#formb" role="tab" aria-controls="form" aria-selected="true">Beneficiarios</a>				   	
+			</li>
+			<li class="nav-item">
+			<a class="nav-link" th:classappend=" ${listConvTab}" id="listConv-tab" data-toggle="tab" href="#listConv" role="tab" aria-controls="form" aria-selected="true">Lista Convenios</a>				   	
+			</li>
+			<li class="nav-item">
+			<a class="nav-link" th:classappend=" ${formcTab}" id="formc-tab" data-toggle="tab" href="#formc" role="tab" aria-controls="form" aria-selected="true">Convenios</a>				   	
+			</li>
+			<li class="nav-item">
+			<a class="nav-link" href="#" th:href="@{/logout}"><span th:text="${#authentication.getPrincipal().getUsername()}"></span> - <span>logout  </span><span class="float-right"><i class="fas fa-sign-out-alt"></i></span></a>				   	
+			</li>
+		</ul>
+		<div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade show" th:classappend=" ${listTab}" id="list" role="tabpanel" aria-labelledby="list-tab">
+				<div class="card">
+					<div class="card-header">
+						<h4>Clientes existentes</h4>
+					</div>
+					<div class="card-body">
+						<div th:include="user_form/cliente-list.html" th:remove="tag"></div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade show" th:classappend=" ${formTab}" id="form" role="tabpanel" aria-labelledby="form-tab">
+				<div class="card">
+					<div class="card-header">
+						<h4>Información del Cliente</h4>
+					</div>
+					<div class="card-body">
+						<div th:include="user_form/cliente-form.html" th:remove="tag"></div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade show" th:classappend=" ${formbTab}" id="formb" role="tabpanel" aria-labelledby="formb-tab">
+				<div class="card">
+					<div class="card-header">
+						<h4>Información de Beneficiarios</h4>
+					</div>
+					<div class="card-body">
+						<div th:include="user_form/beneficiario-form.html" th:remove="tag"></div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade show" th:classappend=" ${listConvTab}" id="listConv" role="tabpanel" aria-labelledby="listConv-tab">
+				<div class="card">
+					<div class="card-header">
+						<h4>Convenios existentes</h4>
+					</div>
+					<div class="card-body">
+						<div th:include="user_form/convenio-list.html" th:remove="tag"></div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade show" th:classappend=" ${formcTab}" id="formc" role="tabpanel" aria-labelledby="formc-tab">
+				<div class="card">
+					<div class="card-header">
+						<h4>Información de Convenios</h4>
+					</div>
+					<div class="card-body">
+						<div th:include="user_form/convenio-form.html" th:remove="tag"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div th:include="user_form/cliente-eliminar-dialog.html" th:remove="tag"></div>
+</body>
+</html>

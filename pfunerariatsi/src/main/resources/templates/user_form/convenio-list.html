@@ -1,0 +1,54 @@
+<div class="table-responsive">
+	<table id="convenioList" class="table table-bordered table-hover table-striped">
+		<thead class="thead-light">
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">Tipo Contratación</th>
+			<th scope="col">RFC Titular</th>
+			<th scope="col">Folio Convenio</th>
+			<th scope="col">Fecha Contratación</th>
+			<th scope="col">Paquete</th>
+			<th scope="col">Costo Afiliación</th>
+			<th scope="col">Total Convenio</th>
+			<th scope="col">Folio Convenio Previo</th>
+			<th></th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr th:each="convenio: ${convenioList}">
+			<td th:text="${convenio.idReg}"></td>
+			<td th:text="${convenio.catservicios.descTipoContrata}"></td>
+			<td th:text="${convenio.rfcTitular}"></td>
+			<td th:text="${convenio.folioConvenio}"></td>
+			<td th:text="${convenio.fchContConve}"></td>
+			<td th:text="${convenio.paquetespfs.nombrePaq}"></td>
+			<td th:text="${convenio.costoAfiliacion}"></td>
+			<td th:text="${convenio.totalConvenio}"></td>
+			<td th:text="${convenio.folioConvenioPrev}"></td>
+			<td>
+					<a href="#" th:href="@{'/modificarConvenio/'+ ${convenio.idReg}}"><i class="fas fa-edit"></i></a>
+					<!-- <a href="#" th:onclick="'javascript:confirmDeleteConv(\''+ ${convenio.idReg} +'\');'"><i class="fas fa-user-times"></i></a>  -->
+					
+					<!-- <a href="#" th:href="@{'/beneficiarioCliente/'+ ${cliente.rfc}}"><i class="fas fa-user-plus"></i></a>  -->
+			</td>
+		</tr>
+		</tbody>
+	</table>
+	<div class="alert alert-danger text-center" th:if="${listErrorMessage}" th:text="${listErrorMessage}">Mensaje de Error</div>
+</div>
+
+<script type="text/javascript">
+/*
+function confirmDeleteConv(id){
+	$('#deleteModal').modal('show');
+	$("#clienteIdHiddenInput").val(id);
+}
+
+//function deleteUser(){
+function eliminarCliente(){
+	var id = $("#clienteIdHiddenInput").val();
+    //window.location = "deleteUser/"+id;
+	window.location = "eliminarCliente/"+id;
+}
+*/
+</script>

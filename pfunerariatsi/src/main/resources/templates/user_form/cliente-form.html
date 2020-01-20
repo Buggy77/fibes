@@ -1,0 +1,210 @@
+<form class="form" role="form" autocomplete="off"  th:object="${clienteForm}" th:action="${signup}?@{/signup}:(${editMode} ?@{/modificarCliente} :@{/clienteForm})" method="post">
+	<input class="form-control" type=hidden th:field="${clienteForm.idCliente}"  th:if="${editMode}">	
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Nombre(s)</label>
+		<div class="col-lg-9">
+			<input class="form-control" type="text" th:field="${clienteForm.nombre}" th:disabled="${disableFields}">
+					<div class="alert-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error Nombre</div>
+	
+		</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Apellido Paterno</label>
+		<div class="col-lg-9">
+			<input class="form-control" type="text" th:field="${clienteForm.appP}" th:disabled="${disableFields}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('appP')}" th:errors="*{appP}">Error App Paterno</div>
+	
+		</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Apellido Materno</label>
+		<div class="col-lg-9">
+			<input class="form-control" type="text" th:field="${clienteForm.appM}" th:disabled="${disableFields}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('appP')}" th:errors="*{appP}">Error App Materno</div>
+	
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Fecha de Nacimiento</label>
+		<div class="col-lg-9">
+			<input class="form-control" type="date" th:field="${clienteForm.fchNacimiento}" th:disabled="${disableFields}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('fchNacimiento')}" th:errors="*{fchNacimiento}">Error Fecha Nacimiento</div>	
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label th:text="Género" class="col-lg-3 col-form-label form-control-label"></label>
+		<div class="col-lg-9">
+			<select class="form-control" th:size="${signup}?1:3" th:field="${clienteForm.genero}" th:disabled="${disableFields}">
+				<option disabled value="NINGUNO">-----Seleccionar-----</option>
+				<option th:each="generos :${generos}" th:value="${generos}" th:text="${generos.generoStr}">
+				</option>
+			</select>
+			<div class="alert-danger" th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}">Error Genero</div>
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Correo electrónico</label>
+		<div class="col-lg-9">
+			<input class="form-control" type="email" th:field="${clienteForm.correoElect}" th:disabled="${disableFields}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('correoElect')}" th:errors="*{correoElect}">Error Correo</div>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Folio IFE</label>
+		<div class="col-lg-9">
+			<input class="form-control" type="text" th:field="${clienteForm.folioife}" th:disabled="${disableFields}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('folioife')}" th:errors="*{folioife}">Error FolioIFE</div>
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">RFC</label>
+		<div class="col-lg-9">
+			<input class="form-control" type="text" th:field="${clienteForm.rfc}" th:disabled="${disableFields}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('rfc')}" th:errors="*{rfc}">Error RFC</div>
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">CURP</label>
+		<div class="col-lg-9">
+			<input class="form-control" type="text" th:field="${clienteForm.curp}" th:disabled="${disableFields}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('curp')}" th:errors="*{curp}">Error CURP</div>
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">CP</label>
+		<div class="col-lg-9">
+			<input id="cp" class="form-control" type="text" pattern="\d+" th:field="${cpC.cp}" th:disabled="${disableFields}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('cp')}" th:errors="*{cp}">Error CP</div>
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label th:text="Colonia" class="col-lg-3 col-form-label form-control-label"></label>
+		<div class="col-lg-9">
+			<input id="idRegAsentaS" class="form-control" type="hidden" th:field="${asentamientoC.idRegAsentaS}" th:disabled="${disableFields}">
+			<input id="descAsentaS" class="form-control" type="hidden" th:field="${asentamientoC.descAsentaS}" th:disabled="${disableFields}">
+			<input id="idRegTipoS" class="form-control" type="hidden" th:field="${asentamientoC.idRegTipoS}" th:disabled="${disableFields}">
+			<select id="asentamientos" name="asentamientos"  class="form-control" th:size="${signup}?1:3"  >
+				<option disabled value="NINGUNO">-----Seleccionar-----</option>
+				<option th:each="colonia :${direccionesDto}" 
+					th:value="${colonia.idRegAsentaS}" 
+					th:text="${colonia.descAsentaS}"
+					th:selected="${colonia.idRegAsentaS == clienteForm.idRegAsentaS}">
+				</option>
+				
+			</select>
+			<div class="alert-danger" th:if="${#fields.hasErrors('asentamientos')}" th:errors="*{asentamientos}">Error Colonia</div>
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Municipio</label>
+		<div class="col-lg-9">
+			<input id="idRegMnpioS" class="form-control" type="hidden" th:field="${municipioC.idRegMnpioS}" th:disabled="${disableFields}">
+			<input id="descMnpio" class="form-control" type="text" th:field="${municipioC.descMnpio}" >
+			<div class="alert-danger" th:if="${#fields.hasErrors('idRegMnpioS')}" th:errors="*{idRegMnpioS}">Error Municipio</div>
+			<!--input id="descMnpio" class="form-control" type="text" disabled="disabled" -->
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Estado</label>
+		<div class="col-lg-9">
+			<input id="idRegEstadoS" class="form-control" type="hidden" th:field="${estadoC.idRegEstadoS}" th:disabled="${disableFields}">
+			<input id="descEstado" class="form-control" type="text" th:field="${estadoC.descEstado}" th:disabled="${disableFields}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('idRegEstadoS')}" th:errors="*{idRegEstadoS}">Error Estado</div>
+			<!-- input id="descEstado" class="form-control" type="text" disabled="disabled" -->
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Calle</label>
+		<div class="col-lg-9">
+			<input class="form-control" type="text" th:field="${clienteForm.calle}" th:disabled="${disableFields}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('calle')}" th:errors="*{calle}">Error Calle</div>
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">No. Exterior</label>
+		<div class="col-lg-9">
+			<input class="form-control" type="text" th:field="${clienteForm.noExt}" th:disabled="${disableFields}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('noExt')}" th:errors="*{noExt}">Error NoExterior</div>
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">No. Interior</label>
+		<div class="col-lg-9">
+			<input class="form-control" type="text" th:field="${clienteForm.noInt}" th:disabled="${disableFields}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('noInt')}" th:errors="*{noInt}">Error NoInterior</div>
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Desc. Dirección/Referencia</label>
+		<div class="col-lg-9">
+			<input class="form-control" type="text" th:field="${clienteForm.desDireccion}" th:disabled="${disableFields}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('desDireccion')}" th:errors="*{desDireccion}">Error DescDireccion</div>
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Enfermedades Preexistentes</label>
+		<div class="col-lg-9">
+			<input class="form-control" type="text" th:field="${clienteForm.enfePreexiste}" th:disabled="${disableFields}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('enfePreexiste')}" th:errors="*{enfePreexiste}">Error Enfermedades Preexistentes</div>
+			<input class="form-control" id="activo" name="activo" type="hidden" th:value="1" th:disabled="${disableFields}">
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<div class="col-lg-12 text-center">
+			<a class="btn btn-secondary"  th:href="@{'/clienteForm/cancelar'}">Cancelar</a>
+			
+			<input type="submit" class="btn btn-primary"
+				value="Guardar Cambios" th:value="${editMode}?'Modificar Cliente':'Crear Cliente'">
+		</div>
+	</div>
+	<div class="alert alert-danger text-center" th:if="${formErrorMessage}" th:text="${formErrorMessage}">Error MEssage</div>
+	<div class="alert alert-success text-center d-none" id="formSuccess" th:if="${editMode}" >Success MEssage</div>
+</form>
+
+
+		
+		<script th:inline="javascript">
+		/*<![CDATA[*/
+			var modoglobal;
+			$(document).ready(function(){
+				modoglobal = /*[[${editMode}]]*/;
+				console.log('Dato de editMode: ' + modoglobal);
+				
+				if(modoglobal == 'true'){
+					var cant = $('#asentamientos option').length;
+					//console.log('Cantidad select: ' + cant);
+					if (cant == 2)
+						$('#asentamientos :nth-child(2)').prop('selected', true);
+				}else if(modoglobal == null){
+					//console.log('Entra a null');
+					var cant = $('#asentamientos option').length;
+					if (cant == 2){
+						var valorSel = $('#asentamientos').find(":selected").val();
+						//console.log('Valor del option seleccionado: ' + asentamientos);
+						if(valorSel == '')
+							$('#asentamientos option[value=""]').remove();
+							
+					}
+				}
+			})
+			//$('#nombre').blur(function(e){
+		    //});
+		/*]]>*/
+		</script>
+		<script type="text/javascript" th:src="@{/js/clientesget.js}"></script>
+		
