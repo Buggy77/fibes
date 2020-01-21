@@ -1,0 +1,994 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Convenio" pageWidth="612" pageHeight="792" columnWidth="442" leftMargin="85" rightMargin="85" topMargin="70" bottomMargin="70" uuid="00e45104-7354-4539-9ea9-1595d0398e34">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="930"/>
+	<property name="ireport.callouts" value="##Tue Jan 14 13:18:37 CST 2020"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<queryString>
+		<![CDATA[SELECT M."Nombre",
+       M."AppP",
+	   M."AppM",
+	   M."Folioife",
+	   M."TotalConvenio",
+	   M."total_letra",
+	   M."RfcTitular",
+	   M."FolioConvenio",
+	   M."DatosPago",
+	   M."DescPaq",
+	   M."ServiciosPaq",
+	   M."PrecioPaq",
+	   M."mes",
+	   M."anio",
+	   M."dia",
+	   M."diatext",
+	   M."DescEstado",
+	   M."DescMnpio",
+
+       MAX(CASE WHEN M.Nro = 1 THEN "NombreBenef" ELSE NULL END) AS nom_ben1,
+       MAX(CASE WHEN M.Nro = 1 THEN "AppPBenef" ELSE NULL END) AS app_ben1,
+	   MAX(CASE WHEN M.Nro = 1 THEN "AppMBenef" ELSE '' END) AS apm_ben1,
+       MAX(CASE WHEN M.Nro = 2 THEN "NombreBenef" ELSE '' END) AS nom_ben2,
+       MAX(CASE WHEN M.Nro = 2 THEN "AppPBenef" ELSE '' END) AS app_ben2,
+	   MAX(CASE WHEN M.Nro = 2 THEN "AppMBenef" ELSE '' END) AS apm_ben2,
+	   MAX(CASE WHEN M.Nro = 3 THEN "NombreBenef" ELSE '' END) AS nom_ben3,
+       MAX(CASE WHEN M.Nro = 3 THEN "AppPBenef" ELSE '' END) AS app_ben3,
+	   MAX(CASE WHEN M.Nro = 3 THEN "AppMBenef" ELSE '' END) AS apm_ben3
+       FROM ( SELECT cli."Nombre",
+                     cli."AppP",
+			 		 cli."AppM",
+			 		 cli."Folioife",
+			 		 con."TotalConvenio",
+			 		 esqfibeso.fu_numero_letras(con."TotalConvenio")as total_letra,
+			 		 con."RfcTitular",
+			 	     con."FolioConvenio",
+			         con."DatosPago",
+			 		 paq."DescPaq",
+			 		 paq."ServiciosPaq",
+			 		 paq."PrecioPaq",
+			 		 to_char(con."FchContConve", 'TMMonth')as mes,
+			 		 to_char(con."FchContConve", 'YY') as anio,
+			 		 to_char(con."FchContConve", 'dd')as dia,
+			 		 to_char(con."FchContConve", 'TMDay') as diatext,
+			 		 est."DescEstado",
+			 		 mun."DescMnpio",
+                     ben."NombreBenef",
+                     ben."AppPBenef",
+			 		 ben."AppMBenef",
+                     ROW_NUMBER() OVER (PARTITION BY cli."Nombre", cli."AppP",cli."AppM"  ORDER BY ben."NombreBenef") AS Nro
+                     FROM esqfibeso.clientes cli
+			 LEFT JOIN esqfibeso.convenios con
+			 ON cli."Rfc" = con."RfcTitular"
+			 LEFT JOIN esqfibeso.beneficiarios ben
+			 ON ben."RfcTitular" = con."RfcTitular"
+			 LEFT JOIN esqfibeso.paquetes_pfs paq
+			 ON paq."IdPaqPF" = con."IdPaqPF"
+			 LEFT JOIN esqfibeso.cat_estados est
+			 ON est."IdRegEstadoS" = con."IdEstadoContra"
+			 LEFT JOIN esqfibeso.cat_mnpios mun
+			 ON mun."IdRegMnpioS" = con."IdCiudadContra"
+			 WHERE con."FolioConvenio" = 'DOC-CREM-20190104-00001-00001'
+       ) M
+       GROUP BY M."Nombre",
+                M."AppP",
+				M."AppM",
+				M."Folioife",
+				M."TotalConvenio",
+				M."total_letra",
+				M."RfcTitular",
+				M."FolioConvenio",
+				M."DatosPago",
+				M."DescPaq",
+				M."ServiciosPaq",
+				M."PrecioPaq",
+				M."mes",
+	   			M."anio",
+	   			M."dia",
+	   			M."diatext",
+	   			M."DescEstado",
+	   			M."DescMnpio";]]>
+	</queryString>
+	<field name="Nombre" class="java.lang.String"/>
+	<field name="AppP" class="java.lang.String"/>
+	<field name="AppM" class="java.lang.String"/>
+	<field name="Folioife" class="java.lang.String"/>
+	<field name="TotalConvenio" class="java.lang.Double"/>
+	<field name="total_letra" class="java.lang.String"/>
+	<field name="RfcTitular" class="java.lang.String"/>
+	<field name="FolioConvenio" class="java.lang.String"/>
+	<field name="DatosPago" class="java.lang.String"/>
+	<field name="DescPaq" class="java.lang.String"/>
+	<field name="ServiciosPaq" class="java.lang.String"/>
+	<field name="PrecioPaq" class="java.lang.Double"/>
+	<field name="mes" class="java.lang.String"/>
+	<field name="anio" class="java.lang.String"/>
+	<field name="dia" class="java.lang.String"/>
+	<field name="diatext" class="java.lang.String"/>
+	<field name="DescEstado" class="java.lang.String"/>
+	<field name="DescMnpio" class="java.lang.String"/>
+	<field name="nom_ben1" class="java.lang.String"/>
+	<field name="app_ben1" class="java.lang.String"/>
+	<field name="apm_ben1" class="java.lang.String"/>
+	<field name="nom_ben2" class="java.lang.String"/>
+	<field name="app_ben2" class="java.lang.String"/>
+	<field name="apm_ben2" class="java.lang.String"/>
+	<field name="nom_ben3" class="java.lang.String"/>
+	<field name="app_ben3" class="java.lang.String"/>
+	<field name="apm_ben3" class="java.lang.String"/>
+	<variable name="prr1" class="java.lang.String">
+		<variableExpression><![CDATA["Que tiene su domicilio en Versalles número 15, primer piso, Colonia Juárez, Demarcación Territorial Cuauhtémoc, CP. 06600, en la Ciudad de México."]]></variableExpression>
+	</variable>
+	<pageHeader>
+		<band height="65">
+			<elementGroup>
+				<line>
+					<reportElement mode="Transparent" x="0" y="63" width="442" height="1" uuid="cca35e85-f6b6-42c7-977c-b16bde7ca711"/>
+					<graphicElement>
+						<pen lineWidth="5.0" lineStyle="Double"/>
+					</graphicElement>
+				</line>
+			</elementGroup>
+			<staticText>
+				<reportElement x="129" y="32" width="313" height="21" uuid="9812bfad-01ba-4d44-aeed-c58a0e7b3de8"/>
+				<textElement>
+					<font fontName="Cambria" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONVENIO DE AFILIACIÓN PREVISIÓN FUNERARIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="11" width="313" height="21" uuid="26b39221-46a7-4edc-b110-f08b6a4d9d35"/>
+				<textElement>
+					<font fontName="Cambria" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fideicomiso de Beneficios Sociales]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="1" width="129" height="52" uuid="4f8a1472-4073-435b-9257-646ddabe8657"/>
+				<imageExpression><![CDATA["\\\\fibeso.png"]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="565" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="442" height="83" uuid="5ea4d2c5-1bf1-4786-a0f7-566ce3b45a70"/>
+				<textElement textAlignment="Justified" markup="styled">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CONVENIO DE AFILIACIÓN AL PROGRAMA DE PREVISIÓN FUNERARIA QUE CELEBRAN POR UNA PARTE, EL FIDEICOMISO DE BENEFICIOS SOCIALES No. 4600-6 TAMBIÉN DENOMINADO COMO FIBESO, A QUIÉN EN LO SUCESIVO SE LE DENOMINARÁ “EL FIDEICOMISO” Y POR LA OTRA " + "<style isBold='true'>"+ $F{Nombre} +" "+ $F{AppP} +" "+ $F{AppM}+ "</style>"+" A QUIEN EN LO SUCESIVO SE LE DENOMINARÁ “EL AFILIADO”, AL TENOR DE LAS SIGUIENTES DECLARACIONES Y CLÁUSULAS:"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="83" width="442" height="20" uuid="3f0be6d3-0ef1-448b-b009-0354a381965f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Declaraciones]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="103" width="442" height="462" uuid="48c5120b-6f62-44e1-8225-14f75466f017"/>
+				<textElement textAlignment="Justified" markup="styled">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<text><![CDATA[<style isBold='true'>I. Declara “EL FIDEICOMISO”:
+
+I.1 </style> Que el Instituto Mexicano del Seguro Social, en su carácter de Fideicomitente, celebró con Banco Obrero, S.A., Institución de Banca Múltiple, un Fideicomiso de Administración denominado “Fideicomiso de Beneficios Sociales (FIBESO)“, mediante contrato privado de fecha 29 de junio de 1990, pasado ante la fe del Lic. José Antonio Manzanero Escutia, Notario Público No. 138 del Distrito Federal, el cual quedó registrado ante la Secretaría de Hacienda y Crédito Público bajo el número 700019GYR344 del Registro de Fideicomisos y Mandatos de la Administración Pública Federal.
+
+Debido a la liquidación y quiebra de Banco Obrero, S.A., Institución de Banca Múltiple, el 11 de mayo de 2004, el Fideicomitente celebró un contrato de sustitución fiduciaria con Banco del Bajío, S.A., Institución de Banca Múltiple, en calidad de fiduciario sustituto.
+
+El 4  de octubre de 2010, las partes, celebraron un Convenio Modificatorio al Contrato de Fideicomiso, mediante el cual se modificaron las cláusulas CUARTA (Patrimonio), SEXTA (Fines del Fideicomiso), DÉCIMA CUARTA (Prohibiciones del Fiduciario), VIGÉSIMA TERCERA (Rendición de cuentas) y VIGÉSIMA CUARTA (Interpretación y cumplimiento).
+
+<style isBold='true'>I.2 </style>Que tiene por objeto principal, recibir las cantidades que se generen de la administración y aprovechamiento de los servicios que se proporcionan en los velatorios del Instituto Mexicano del Seguro Social, así como el otorgamiento de la prestación social de todos los servicios de “Previsión Funeraria” (paquete funerario integral, aplicable al momento de la defunción, cubierto con la afiliación de pago anual), mismos que se detallan en la cláusula PRIMERA de este Convenio, por sí o por interpósita persona o a través de la subrogación, según sea el caso.
+
+<style isBold='true'>I.3 </style>Que su representante legal, Dra. Cristinne Leo Martel en su carácter de  Directora Técnica, cuenta con las facultades legales necesarias para celebrar el presente instrumento legal, y acredita su personalidad mediante el poder general asentado en el testimonio de la escritura pública número 14,754, de fecha 09  de enero 2019, pasada ante la fe del licenciado Licenciada Ma. Soledad Olvera Sánchez titular de la Notaría Pública 105 de la Ciudad de León Guanajuato, México.
+]]></text>
+			</staticText>
+		</band>
+		<band height="565">
+			<staticText>
+				<reportElement x="0" y="428" width="442" height="20" uuid="5256c764-a496-4cfa-92fb-87ec4365e87a"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[<style isBold='true'>C L Á U S U L A S</style>
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="471" width="442" height="61" uuid="938e31c9-ee7f-4e12-aa6b-46ecbc54ca4e"/>
+				<textElement textAlignment="Justified" markup="styled">
+					<font fontName="Calibri" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[<style isBold='true'>PRIMERA.-</style> “EL FIDEICOMISO” le otorga a “EL AFILIADO” un folio único intransferible de afiliación al Programa de Previsión Funeraria, el cual solamente cubrirá una de las siguientes opciones de gastos funerarios, dependiendo del paquete que se describe a continuación y que será especificado en el <style isBold='true'>“Anexo A”:</style>
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="442" height="151" uuid="07262714-a165-49ee-aed5-3905504fd1a4"/>
+				<textElement markup="styled">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<text><![CDATA[<style isBold='true'>I.4</style> Que tiene su domicilio en Versalles número 15, primer piso, Colonia Juárez, Demarcación Territorial Cuauhtémoc, CP. 06600, en la Ciudad de México.
+
+<style isBold='true'>I.5</style> Que su Registro Federal de Contribuyentes es FBS940708GA4.
+
+<style isBold='true'>I.6</style> El Aviso de Privacidad Integral de los Velatorios del Instituto Mexicano del Seguro Social (IMSS) y del Fideicomiso de Beneficios Sociales (FIBESO) puede consultarlo en la página del IMSS: https://www.gob.mx/privacidadintegral
+
+<style isBold='true'>II. Declara “EL AFILIADO”:</style>
+
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="151" width="442" height="44" uuid="6eead269-a09b-45f6-974e-10a95caff894"/>
+				<textElement textAlignment="Justified" markup="styled">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold='true'>II.1</style>"+" Que es una persona física, de nombre "+"<style isBold='true'>"+ $F{Nombre} +" "+ $F{AppP} +" "+ $F{AppM}+"</style>"+", como acredita con su credencial para votar con número de folio "+"<style isBold='true'>"+$F{Folioife}+"</style>"+", quien tiene capacidad para contratar."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="195" width="442" height="220" uuid="3cb322b0-e01d-42bc-8e64-b88ae5b5e238"/>
+				<textElement textAlignment="Justified" markup="styled">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<text><![CDATA[<style isBold='true'>II.2</style> Que designa como beneficiario(s) del presente Convenio de afiliación a la persona titular y hasta 3 beneficiarios adicionales, descritos en el<style isBold='true'> “ANEXO A”</style> donde se indicarán datos específicos sobre el tipo de contratación, nombre del titular y beneficiarios entre otras especificaciones.
+
+<style isBold='true'>II.3</style> Que es su voluntad convenir a la afiliación del Programa de “Previsión Funeraria”, en los términos y condiciones del presente Convenio, manifestando que se obliga a mostrar una identificación oficial vigente al solicitar la adenda anual<style isBold='true'> “Anexo B”</style> de afiliación a dicho programa.
+
+<style isBold='true'>III. Ambas partes declaran que:</style>
+
+<style isBold='true'>III.1.</style> Es su voluntad obligarse en los términos de este instrumento, manifestando que no existe vicio alguno de voluntad, error, dolo, lesión o mala fe, que pudiera ocasionar su nulidad, así como que conocen el alcance de las modificaciones materia del presente convenio y su conformidad respecto de los efectos legales del mismo, por lo que están conformes en obligarse al tenor de las siguientes:
+]]></text>
+			</staticText>
+		</band>
+		<band height="587">
+			<staticText>
+				<reportElement x="0" y="138" width="442" height="419" uuid="ec6519f0-95c8-47d9-8b44-e9016b5d9b68"/>
+				<textElement textAlignment="Justified" markup="styled">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<text><![CDATA[*El paquete de cremación <style isUnderline='true'>solo</style> aplica para los siguientes velatorios: Doctores, Tequesquináhuac, Guadalajara, Chihuahua, Torreón y Ecatepec.
+
+1. <style isUnderline='true'>Paquete Económico:</style> incluye la recolección y traslado del cuerpo (hasta 100km en la misma entidad federativa), capilla en velatorio o en domicilio (hasta 48 horas), apoyo para trámites, arreglo estético del cuerpo y embalsamamiento (en caso de ser necesario), ataúd de donación (de uso previo); lo anterior, de acuerdo a la normatividad vigente que aplique para los Velatorios IMSS para el otorgamiento de servicios funerarios.
+
+2. <style isUnderline='true'>Paquete básico:</style> incluye la recolección y traslado del cuerpo (hasta 100km en la misma entidad federativa), capilla en velatorio o en domicilio (hasta 48 horas), apoyo para trámites, arreglo estético del cuerpo y embalsamamiento (en caso de ser necesario), ataúd nuevo básico; lo anterior, de acuerdo a la normatividad vigente que aplique para los Velatorios IMSS para el otorgamiento de servicios funerarios.
+
+3. <style isUnderline='true'>Paquete con cremación:</style> incluye la recolección y traslado del cuerpo (hasta 100km en la misma entidad federativa), capilla en velatorio o en domicilio (hasta 48 horas), apoyo para trámites, arreglo estético del cuerpo y embalsamamiento (en caso de ser necesario), ataúd de donación (de uso previo) y la cremación únicamente aplica para los siguientes velatorios En dicho paquete no se incluye la urna para cenizas, lo anterior, de acuerdo a la normatividad vigente que aplique para los Velatorios IMSS para el otorgamiento de servicios funerarios.
+
+Si “EL AFILIADO” eligiera otro tipo de ataúd que no sea el que se incluye en los paquetes es decir el modelo básico o económico que tenga disponible el Velatorio (incluyendo la necesidad de un ataúd “Jumbo”, también conocido como tambora), su diferencia y cualquier otro servicio adicional (pullman, servicio de cafetería, horas adicionales de capilla, todos los kilómetros adicionales a los 100 incluidos, traslado vía aérea, etc.) será cubierto por “EL AFILIADO”.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="442" height="29" uuid="84058982-ba85-40d0-ae12-8df640fa8b93"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<image>
+				<reportElement x="106" y="29" width="211" height="109" uuid="80d01460-cc75-4daf-b4d3-51e38e5b6482"/>
+				<imageExpression><![CDATA["\\\\planes.png"]]></imageExpression>
+			</image>
+		</band>
+		<band height="587">
+			<staticText>
+				<reportElement x="0" y="0" width="442" height="223" uuid="3336a0ab-966b-4b69-a217-71be7fa486a8"/>
+				<textElement textAlignment="Justified" markup="styled">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<text><![CDATA[
+Si el ataúd seleccionado por el afiliado fuera de menor precio, la diferencia no será reembolsada. También serán a cargo del “AFILIADO” los gastos que se realicen ante las dependencias oficiales derivados de la gestoría y cualquier otro trámite derivado del fallecimiento (impuestos, derechos, actas y otros). En el caso de que “EL AFILIADO” requiera realizar trámites de gestoría en localidades donde el IMSS no cuente con la presencia de un Velatorio, dichos trámites correrán por cuenta del “AFILIADO”. En el caso de inhumaciones, “EL FIDEICOMISO” concluirá la cobertura del servicio, con la entrega del cuerpo en la entrada del panteón que designe “EL AFILIADO”. En caso de que el cuerpo no pueda ser velado por indicación médica, que el cuerpo no requiera embalsamamiento o que “EL AFILIADO” solicite explícitamente que el cuerpo no se embalsame, no se hará ningún tipo de reembolso.
+
+<style isBold='true'>SEGUNDA.-</style> “EL FIDEICOMISO” se obliga a cubrir los gastos que se señalan en la cláusula PRIMERA del presente Convenio, a petición de “EL AFILIADO” o persona que autorice para tal efecto, enunciándose a continuación los velatorios en los cuales “EL FIDEICOMISO” podrá cubrir los gastos funerarios objeto del presente Convenio:
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="223" width="442" height="364" uuid="afce0e4c-c7fd-432c-aa5b-449505c96901"/>
+				<textElement textAlignment="Justified" markup="styled">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<text><![CDATA[<style isBold='true'>EN EL VALLE DE MÉXICO</style><style isBold='true' isUnderline='true'> las 24 horas, los 365 días del año.</style>
+
+<li>Doctores Dr. Rafael Lucio No. 237, esquina Dr. Isidro Olvera, Col. Doctores, C.P. 06720, en la Ciudad de México. Teléfonos: 01(55) 57 61 33 27, 01(55) 55 88 30 74, 01(55) 55 88 14 76.</li>
+<li>Tequesquináhuac, Francisco Márquez No. 2, esquina Av. del Seguro Social, Col. Tequesquináhuac, C.P. 54030, Tlalnepantla de Baz, Edo. Méx. Teléfonos: 01(55) 53 10 80 80, 01(55) 53 10 98 91, 01(55) 53 10 27 08.</li>
+<li>Ecatepec, Av. Vía Morelos No. 74, entre calle Hidalgo y diagonal Santa Clara, Col. Santa Clara Coatitla, Ecatepec, Edo. de Méx. Teléfonos: 01(55) 5788 5262 y 01(55) 5791 4844.</li>
+
+<style isBold='true'>EN EL INTERIOR DE LA REPÚBLICA</style><style isBold='true' isUnderline='true'> las 24 horas, los 365 días del año.</style>
+
+<li><style isBold='true'>Cd. Juárez</style>, Calle Codorniz No. 3660 esquina  Av. de los Aztecas, Col. Granjas de Chapultepec, Cd. Juárez, Chih. Teléfono: 01(656) 610 02 10.</li>
+<li><style isBold='true'>Chihuahua</style>, Av. 20 de Noviembre No. 711, Col. Centro, C.P. 31000, Chihuahua, Chih. Teléfono: 01(614) 416 10 73.</li>
+<li><style isBold='true'>Guadalajara</style>, Av. de la Paz No. 1788, Col. Americana, C.P. 44160, Guadalajara, Jal. Teléfonos: 01(33) 38 25 19 25, 01(33) 38 25 52 65.</li>
+<li><style isBold='true'>Mérida</style>, Calle 59 No. 640, entre Calles 80 y 82, Col. Centro, C.P. 97000, Mérida, Yuc. Teléfonos: 01(999) 924 51 74, 01(999) 924 50 41.</li>
+<li><style isBold='true'>Monterrey</style>, Dr. Ignacio Morones Prieto, esquina  Av. Baja California, Col. Independencia, C.P. 64720, Monterrey, N.L. Teléfonos: 01(81) 81 90 43 03, 01(81) 81 90 69 35.</li>
+<li><style isBold='true'>Pachuca</style>, Blv. Luis Donaldo Colosio No. 1303, Libramiento Vial Pachuca-Tulancingo, Col. Presa Jales Norte, C.P. 42083, Pachuca, Hgo. Teléfono: 01(771) 713 30 22.</li>
+<li><style isBold='true'>Puebla</style>, Calle 25 Sur No. 1501, Col. Sta. Cruz Los Ángeles, C.P. 72370, Puebla, Pue. Teléfono: 01(222) 231 29 28.</li>]]></text>
+			</staticText>
+		</band>
+		<band height="587">
+			<staticText>
+				<reportElement x="0" y="0" width="442" height="280" uuid="f4c25f00-1597-496f-86d6-bdbdee04994a"/>
+				<textElement markup="styled">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<text><![CDATA[<li><style isBold='true'>Querétaro</style>, Calle Vicente Guerrero Norte No. 36, Col. Centro, C.P. 76000, Querétaro, Qro. Teléfono: 01(442) 214 32 85.</li>
+<li><style isBold='true'>San Luís Potosí</style>, Av. Venustiano Carranza No. 750, Zona Centro, C.P. 78000, San Luis Potosí, SLP. Teléfono: 01(444) 812 16 88.</li>
+<li><style isBold='true'>Tapachula</style>, Calle Central Oriente No. 24, Col. Centro, C.P. 30700, Tapachula, Chis. Teléfono: 01(962) 625 24 65.</li>
+<li><style isBold='true'>Toluca</style>, Av. Miguel Hidalgo Poniente No. 709, Col. La Merced Alameda, C.P. 50080, Toluca, Edo. Méx. Teléfono: 01(722) 215 72 45.</li>
+<li><style isBold='true'>Torreón</style>, Av. Morelos No. 56 Poniente, Col. Centro, C.P. 27000, Torreón, Coah. Teléfonos: 01(871) 711 15 46, 01(871) 716 82 45.</li>
+<li><style isBold='true'>Veracruz</style>, Av. Prolongación Díaz Mirón No. 421, Col. Malibrán, C.P. 91740, Veracruz, Ver. Teléfono: 01(229) 922 19 27.</li>
+<li><style isBold='true'>Tampico</style>, Av. Manrique No. 542 entre Avenida Hidros y Calle Altamira, Fracc. Colinas de San Gerardo, C.P. 89367, Tampico, Tamps. Teléfono: 01 (833) 227 94 62.</li>
+<li><style isBold='true'>Villahermosa</style>, Prolongación Avenida México No. 1203, Col. Sabina, Col. Centro, C.P. 86153, Villahermosa, Tab. Teléfonos: 01-(993) 184 08 52, 01-(993) 184 08 51, 01-(993) 184 08 50 y  01-(993) 412 80 27.</li>
+
+En el caso de incorporación de un inmueble adicional, o nueva ubicación de los velatorios, será informado por medio de la página del IMSS: http://www.imss.gob.mx/servicios/velatorios
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="280" width="442" height="130" uuid="7770aadf-1499-4bf1-809b-5047d7dbd8a4"/>
+				<textElement textAlignment="Justified" markup="styled">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold='true'>TERCERA.-</style> “EL AFILIADO” se obliga a cubrir a la firma de este Convenio la cantidad de "+"<style isBold='true'>"+ '$'+$F{TotalConvenio} +" ("+ $F{total_letra}+")"+ "</style>"+" por concepto de cuota inicial a su afiliación, lo cual permite quedar amparado en el programa de “Previsión Funeraria” y que “EL FIDEICOMISO” esté en posibilidad de cubrir los gastos funerarios establecidos en la cláusula PRIMERA, a favor del titular del presente Convenio, o de uno de sus beneficiarios (padres, cónyuge, concubina (o) y/o hijos). La cuota cubrirá únicamente un evento, es decir la afiliación cubre únicamente un deceso ya sea del titular o de cualquiera de los beneficiarios, con las limitaciones establecidas en la cláusula QUINTA de este Convenio."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="410" width="442" height="177" uuid="9565bd5f-081a-487f-a39a-e835138d094b"/>
+				<textElement textAlignment="Justified" markup="styled">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<text><![CDATA[Dicha cuota incrementará cada año de acuerdo con la inflación y podrá ser modificada sin previo aviso en caso de que los costos de los servicios sufran cambios.
+
+<style isBold='true'>CUARTA.-</style> Al momento de que ocurra el fallecimiento de “EL AFILIADO” o de sus beneficiarios, deberá presentar la documentación que se relaciona a continuación, según sea el caso:
+I.Certificado Médico de Defunción original.
+II.Recibo de pago y Adenda de Convenio <style isBold='true'>“ANEXO B”</style> de Previsión Funeraria, ambos en original.
+III.Identificación Oficial del solicitante del servicio.
+IV.Si se tratase del fallecimiento del cónyuge o concubino(a): Acta de Matrimonio (Original y Copia) o en caso de concubinato, aquél que se especifique en el Código Civil de la entidad federativa correspondiente.
+]]></text>
+			</staticText>
+		</band>
+		<band height="587">
+			<staticText>
+				<reportElement x="0" y="0" width="442" height="587" uuid="f8f08ff4-56bb-41de-9c7f-6cfe4bb54220"/>
+				<textElement textAlignment="Justified" markup="styled">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<text><![CDATA[V.Acta de Nacimiento (Original o Copia Certificada) del afiliado si se tratase del fallecimiento de alguno de los padres;
+VI.Acta de Nacimiento de los hijos (Original o Copia Certificada). La cobertura para los hijos es a partir de los tres meses de vida.
+VII.Acta de Nacimiento (Original o Copia Certificada) y comprobante de estudios (original) de los hijos si son mayores de 18 (dieciocho) años, pero menores de 25 (veinticinco) años.
+Ambas partes acuerdan que en el caso de los hijos, se cubrirán los gastos funerarios siempre y cuando sean mayores de 3 meses de nacidos y menores de 18 (dieciocho) años de edad o bien acrediten a “EL FIDEICOMISO” que se trata de hijos menores de 25 años y que hayan sido estudiantes de un plantel perteneciente al Sistema Educativo Nacional, al ocurrir el fallecimiento.
+
+<style isBold='true'>QUINTA.-</style> “EL FIDEICOMISO” se encargará de cubrir los gastos funerarios específicos por paquete a los que se refiere este Convenio y establece que el servicio de velación se otorgará en cualquiera de los velatorios descritos en la cláusula SEGUNDA del presente Convenio de la localidad donde ocurriese el fallecimiento, o bien, en el domicilio particular que “EL AFILIADO” o sus familiares indiquen.
+
+<style isBold='true'>SEXTA.-</style> En caso de que la velación no fuere posible realizarse en alguno de los velatorios del Instituto Mexicano del Seguro Social, debido a que se carezca de capacidad o a cualquier otra causa ajena a su voluntad, “EL AFILIADO” acepta recibir el servicio bajo la modalidad de velación en domicilio; en caso de no ser posible lo anterior, le será cubierto el servicio en una funeraria de similares características y precios que por escrito le notifique “EL FIDEICOMISO”.
+
+<style isBold='true'>SÉPTIMA.-</style> Una vez que sea utilizada la previsión funeraria para un evento, podrá suscribir un nuevo convenio en caso de requerir una nueva cobertura.
+
+<style isBold='true'>OCTAVA.-</style> La duración del presente Convenio es por un año y su vigencia comenzará a partir del día siguiente al de su firma. Posteriormente, el Convenio se mantendrá vigente, siempre y cuando “EL AFILIADO” acuda a formalizar la Adenda correspondiente, y acredite que realizó el pago anual de manera puntual (cuota de afiliación), los primeros veinte días naturales en el mes que vence la vigencia, lo cual le dará derecho a la continuidad del servicio.
+El cronograma de pagos se dará de la siguiente forma:
+
+“EL AFILIADO” a partir de la fecha de este convenio cuenta con un año para volver a hacer su pago de afiliación y continuidad; podrá pagar y renovar su convenio los primeros 20 días naturales del mes al que corresponde el término de su vigencia, para conservar su antigüedad en el convenio. Si el día 20 es inhábil, se recorrerá al primer día hábil siguiente.
+]]></text>
+			</staticText>
+		</band>
+		<band height="587">
+			<staticText>
+				<reportElement x="0" y="0" width="442" height="587" uuid="461154cc-298b-40fb-9f00-de5302c026d3"/>
+				<textElement textAlignment="Justified" markup="styled">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<text><![CDATA[<style isBold='true'>NOVENA.-</style> En caso de que “EL AFILIADO” utilice, por decisión propia, el (los) servicio(s) con una agencia funeraria distinta a cualquiera de los velatorios que se relacionan en este Convenio, “EL FIDEICOMISO” no cubrirá ninguna cantidad por tal concepto, ni reintegrará los pagos efectuados.
+
+<style isBold='true'>DÉCIMA.-</style> “EL FIDEICOMISO” no estará obligado a cubrir los gastos funerarios materia del presente Convenio y sin responsabilidad alguna para éste, cuando el fallecimiento del titular o de sus beneficiarios, sea a consecuencia de:
+a) Lesiones sufridas en actividades militares de cualquier clase y en actos de guerra, insurrección, revolución, rebelión o manifestaciones en las que participe directamente o en la comisión de actividades delictivas “EL AFILIADO” o sus beneficiarios;
+b) Lesiones originadas por actos delictivos intencionales en los que participe directamente “EL AFILIADO” o sus beneficiarios;
+c) Accidentes que le ocurran a “EL AFILADO” o sus beneficiarios durante celebración de pruebas o contiendas de velocidad, resistencia o seguridad de vehículos de cualquier tipo;
+d) Accidentes que ocurran mientras “EL AFILIADO” o sus beneficiarios se encuentren realizando actividades de paracaidismo u otras de alto riesgo;
+e) Lesiones sufridas al “AFILIADO” o sus beneficiarios estando bajo los efectos de algún enervante, estimulante o similar, excepto si se demuestra que fueron prescritas por un médico;
+f) Enfermedades crónico-degenerativas o terminales, tales como: diabetes, enfermedades del corazón, enfermedades respiratorias, enfermedades renales, cualquier tipo de cáncer y sida; durante el primer año.
+g) Suicidio.
+
+<style isBold='true'>DÉCIMA PRIMERA.-</style> Las enfermedades comprendidas en el inciso f) de la cláusula anterior, al igual que el deceso provocado por suicidio, a partir de la primera renovación del convenio, no serán causa de exclusión por el fallecimiento de “EL AFILIADO” o de sus beneficiarios y, “EL FIDEICOMISO” se obliga a cubrir los gastos funerarios materia del presente Convenio.
+
+<style isBold='true'>DÉCIMA SEGUNDA.-</style> Durante su vigencia, el presente Convenio siempre podrá ser cancelado por omisión o inexacta declaración de hechos, documentación y datos que proporcione “EL AFILIADO”, lo anterior, independientemente de que “EL FIDEICOMISO” se reserve el ejercicio de las acciones civiles o penales que procedan cuando “EL AFILIADO” los proporcione con la finalidad de obtener la cobertura de los gastos funerarios que otorga “EL FIDEICOMISO”.
+Si es deseo de “EL AFILIADO” cancelar el convenio, tendrá que dirigirse a la Subdirección de Comercialización del FIBESO al correo, cancelacionespf@fibeso.mx a efecto de que se giren las instrucciones correspondientes para efectuar la cancelación respectiva, únicamente tendrá que manifestar los motivos por los cuales cancele dicho convenio, aclarando que no existirá reembolso alguno por los conceptos ya erogados.
+
+]]></text>
+			</staticText>
+		</band>
+		<band height="587">
+			<rectangle>
+				<reportElement x="18" y="338" width="409" height="84" uuid="870e1549-21ed-45cc-8441-ab962d2f6472"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="442" height="338" uuid="a72792e2-3973-489e-b933-01af5fc484cc"/>
+				<textElement textAlignment="Justified" markup="styled">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<text><![CDATA[<style isBold='true'>DÉCIMA TERCERA.-</style> En caso de no hacer el pago anual en el tiempo establecido, se dará de baja automáticamente del folio de Previsión Funeraria a nombre de “EL AFILIADO” y sus beneficiarios. Consecuentemente, “EL FIDEICOMISO”, quedará liberado de cualquier responsabilidad ante “EL AFILIADO” a partir de dicha baja reflejada dentro del Sistema del Instituto Mexicano del Seguro Social.
+
+<style isBold='true'>DÉCIMA CUARTA.-</style> “EL AFILIADO” acepta por medio del presente convenio que el ataúd utilizado para los paquetes “social” y “de cremación”, son de uso previo; sin embargo, el presente convenio no limita de manera alguna la adquisición de ataúdes nuevos con costo para “EL AFILIADO”.
+
+<style isBold='true'>DÉCIMA QUINTA.-</style> Quedan estrictamente prohibidos los pagos en efectivo directamente en los velatorios, para los pagos anuales de continuidad, se tendrán que hacer de conformidad con su vigencia y se tendrá los primeros 20 días naturales para efectuarlo dentro del mes del vencimiento, a las cuentas bancarias especificadas en los diversos canales de comunicación autorizados; o por medio de tarjeta de débito o crédito en alguno de los velatorios establecidos en la cláusula SEGUNDA.
+De conformidad con su demarcación, en el <style isBold='true'>“Anexo C”</style>, se ponen a disposición las cuentas bancarias que se encuentran habilitadas para recibir su pago puntual.
+
+<style isBold='true'>DÉCIMA SEXTA.-</style> Para cualquier Atención a Clientes y Afiliados, en caso de que algún personal de Velatorios le exija algún concepto que tenga que ser pagado en efectivo o bien, quejas del servicio, de las Adendas anuales o cualquier tema relacionado con promotoría y con los servicios amparados por este convenio, ponemos a su disposición la siguiente línea y correo de quejas y observaciones.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="422" width="442" height="165" uuid="c1f96831-f711-464d-b971-4ad986a45b2f"/>
+				<textElement textAlignment="Justified" markup="styled">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<text><![CDATA[<style isBold='true'>*Una vez recibido el correo se dará respuesta durante los 5 días hábiles posteriores a la recepción.
+
+DÉCIMA SÉPTIMA.- JURISDICCIÓN, INTERPRETACIÓN Y SOLUCIÓN DE CONTROVERSIAS.-</style> Las partes acuerdan que todo aquello no previsto en el presente convenio, se regirá por lo dispuesto en todas y cada una de las cláusulas del mismo, así como por el Código Civil Federal, Código Federal de Procedimientos Civiles y demás legislación aplicable.
+
+Para la interpretación, cumplimiento y ejecución de este instrumento jurídico, así como para todo aquello que no esté expresamente estipulado en el mismo,<style isBold='true'> “LAS PARTES”</style> están de acuerdo en regirse por la Legislación Mexicana, y en caso de controversia, se someten a la jurisdicción de los]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="338" width="409" height="31" uuid="d70e347e-d1ae-4757-aec4-403ad32e4c2f"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Titular del área de atención y seguimiento a clientes y afiliados: Subdirección de Comercializacion FIBESO. ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="18" y="369" width="409" height="33" uuid="3a059cf4-6179-4ccd-87ef-f0a0e4fb98b7"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Teléfono de atención de quejas (55) 57 05 54 18, (55) 57 05 54 84, Ext. 116 y 121 (Lunes a Viernes de 9:00 a 18:00)."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="18" y="402" width="409" height="20" uuid="d5fc1663-5062-4e2e-aa59-ef52cc46443f"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Correo de atención y seguimiento de quejas: quejaspf@fibeso.mx]]></text>
+			</staticText>
+		</band>
+		<band height="587">
+			<staticText>
+				<reportElement x="0" y="0" width="442" height="48" uuid="f7da5ed5-b7ec-466e-b47d-b4471401c5f2"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<text><![CDATA[tribunales federales competentes de la Ciudad de México, renunciando a cualquier otro fuero presente o futuro que por razón de su domicilio les pudiera corresponder.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="48" width="442" height="75" uuid="ccfa4962-99d1-4ec4-abed-85fafdb3b1e9"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Leído que fue el presente Convenio por las partes y enteradas de su valor y consecuencias legales, lo ratifican en todo su contenido, otorgándolo y firmándolo de conformidad al margen y al calce, extendiéndose por duplicado, en la Ciudad de " +$F{DescMnpio}+ ", "+$F{DescEstado}+", el día "+$F{diatext}+", " +$F{dia}+ " de "+$F{mes}+ " de 20"+$F{anio}+", quedando un ejemplar del mismo en poder de “EL FIDEICOMISO” y el otro en poder de “EL AFILIADO”."]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="25" y="182" width="189" height="111" uuid="ab085026-b63d-4d6e-8e19-7290aa6f7fae"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="214" y="182" width="213" height="111" uuid="1c80dbd7-2e9f-4fca-bbf4-350fa6402fbd"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="25" y="182" width="189" height="111" uuid="d5b4f700-2d26-4894-aa73-466d3168c885"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[“EL FIDEICOMISO”
+
+
+
+
+Dra. Cristinne Leo Martel
+_____________________
+NOMBRE Y FIRMA
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="214" y="182" width="213" height="111" uuid="1c52504d-a5ce-472b-9e16-676fc5ffc5ef"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[“EL AFILIADO”
+
+
+
+
+
+______________________
+NOMBRE, FIRMA Y HUELLA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="214" y="246" width="213" height="20" uuid="c814de58-0257-404b-ab10-13e3af9636a2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Nombre} +" "+ $F{AppP} +" "+ $F{AppM}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="84" y="200" width="86" height="50" uuid="b7de248e-9072-4177-b34b-51e53978f606"/>
+				<imageExpression><![CDATA["\\\\firma.png"]]></imageExpression>
+			</image>
+		</band>
+		<band height="587">
+			<rectangle>
+				<reportElement x="0" y="396" width="103" height="82" uuid="3938784a-7c38-4c3c-bb1f-4a32d305e12c"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="442" height="20" uuid="b979e01a-f4ce-4ff8-a49d-efbfe511fa68"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[“ANEXO A”]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="103" y="256" width="339" height="20" uuid="0ac7cc1c-e0e9-4a7b-972c-204b743846b6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="333" width="103" height="63" uuid="ff285562-5cb1-4fbd-b560-c17ebe3755f4"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="103" y="236" width="339" height="20" uuid="eef20e9e-750e-4ad6-b002-6978069c0b41"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="103" y="296" width="339" height="37" uuid="7bb6bdad-ce57-4134-a608-3e054500fa4d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="296" width="103" height="37" uuid="8025e9e2-b4d9-4cbb-8bdb-7423f6f97bf1"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="256" width="103" height="20" uuid="4f0e9526-184c-4833-b949-5f031cddbea0"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="236" width="103" height="20" uuid="8b31bd82-f48b-4ca5-9b32-200e48d6ac9e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="276" width="103" height="20" uuid="683503ee-605a-43b6-ac4f-3996acc875dd"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="103" y="333" width="339" height="63" uuid="2570e80b-0725-45fd-9450-e9c14f9b3c19"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="236" width="103" height="20" uuid="9ef87c83-e7ef-49b1-b96b-1c8354975b7f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre del titular ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="256" width="103" height="20" uuid="51e0f031-bf2d-409f-8a3e-b78fda664004"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Número de afiliación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="296" width="103" height="37" uuid="f9ed5d42-e676-4173-9130-fd0e9ea002c6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Número de identificación ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="276" width="103" height="20" uuid="7f78fbcb-5277-49a6-9b70-8df6c0cf4438"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RFC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="333" width="103" height="63" uuid="4d2a7851-68a5-45a2-8d5d-8978750f98a4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Datos de ficha de pago o transferencia bancaria ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="396" width="103" height="82" uuid="32e13416-2492-4b50-9391-1890c1b0dd82"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Beneficiarios
+]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="103" y="396" width="339" height="82" uuid="7be46de6-ccc6-4d1e-bd7d-44d6020de42a"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="103" y="22" width="339" height="20" uuid="b5a58650-c6f8-428c-8db9-8cc69c4e0172"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="22" width="103" height="20" uuid="b1c54f15-dc67-426b-9ed8-8c37ded64f6e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="103" y="42" width="339" height="144" uuid="c544aebf-3ac6-475f-9241-0991bf280558"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="42" width="103" height="144" uuid="b8650c17-19cf-4e73-b8fe-9c53c8e8e991"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="103" y="186" width="339" height="40" uuid="b1908561-1458-4a07-83f5-47ef1172f8cd"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="186" width="103" height="40" uuid="26e7e858-7295-46c3-ab93-b718f1d0dfd7"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="103" y="276" width="339" height="20" uuid="2604b735-9b19-469b-bda6-d9adf38301d2"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="22" width="103" height="20" uuid="092349ab-d192-4501-b1ff-30fc72645600"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Paquete Amparado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="42" width="103" height="144" uuid="58b89371-394c-4a89-b470-8e6936e30e41"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Servicios incluidos en el Paquete]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="186" width="103" height="40" uuid="eb562ea1-e46c-421f-b526-230903e15483"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cuota inicial de la Afiliación ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="12" y="522" width="13" height="17" uuid="82ce5948-62e9-447d-a142-67f5fce0f694"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="12" y="489" width="13" height="17" uuid="1a88ed93-3c73-4438-a06e-319f4068caee"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="554" width="442" height="33" uuid="8c305a65-1c2a-4c3a-b613-c73b10232acc"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Calibri" isBold="true"/>
+				</textElement>
+				<text><![CDATA[•En caso de no presentarse el titular deberá contar con una carta poder simple para los efectos específicos de pago de continuidad de afiliación. ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="42" y="489" width="400" height="20" uuid="334080c2-6238-4b2f-88b9-49b706253488"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<text><![CDATA[Deseo cambiar a mis beneficiarios.  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="42" y="522" width="400" height="20" uuid="0249d43d-9340-4a89-a04a-3b1ff2e4bc0c"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<text><![CDATA[Deseo renovar mi afiliación con los mismos beneficiarios.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="489" width="13" height="17" uuid="cd0162de-f268-4f6e-822b-4a67373b63e1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" isBold="true"/>
+				</textElement>
+				<text><![CDATA[X]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="103" y="22" width="339" height="20" uuid="d6627a0e-2f86-434a-9493-75c436baa06c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DescPaq}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="103" y="42" width="339" height="144" uuid="491a6ee0-2204-4eb9-a56a-c9e674da4b24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ServiciosPaq}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="103" y="186" width="339" height="40" uuid="c4ab8de0-b919-4afc-abd1-421031a03c99"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["$"+$F{PrecioPaq}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="103" y="236" width="339" height="20" uuid="d28930ce-5701-4287-a91c-639921fee473"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Nombre} +" "+ $F{AppP} +" "+ $F{AppM}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="103" y="256" width="339" height="20" uuid="cb4f3b9a-e05e-4c7b-8786-ba758c60222c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FolioConvenio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="103" y="276" width="339" height="20" uuid="969f76ea-4cf6-44d7-ae21-9e5282baef68"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RfcTitular}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="103" y="333" width="339" height="63" uuid="8fd7e55d-94cf-4846-844e-288a8e9970e3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DatosPago}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="103" y="296" width="339" height="37" uuid="5820cf00-da5e-4f26-848c-fe91b84680be"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Folioife}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="103" y="396" width="339" height="20" uuid="f659249b-89b2-4367-8076-a24c11416fae"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["1. "+$F{nom_ben1}+" "+$F{app_ben1}+" "+$F{apm_ben1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="103" y="416" width="339" height="20" uuid="40cf81ee-a9ce-4844-8ca6-386127d3b86b"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["2. "+$F{nom_ben2}+" "+$F{app_ben2}+ " "+$F{apm_ben2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="103" y="436" width="339" height="20" uuid="8b363ee8-3f6c-408a-9654-6d7e80bba968"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Calibri" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["3. "+$F{nom_ben3}+" "+$F{app_ben3}+ " "+$F{apm_ben3}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="587">
+			<rectangle>
+				<reportElement x="106" y="316" width="330" height="20" uuid="7e6527b7-f4bf-4f0f-85a4-05672731fad4"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="3" y="316" width="103" height="20" uuid="c50fcf30-18ec-465a-8a02-591aca1a9615"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="5" width="442" height="20" uuid="1d15408e-07b8-482d-ba4e-b9b27ee1de97"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[“ANEXO B” ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="25" width="442" height="20" uuid="2b570b89-c3c6-4a4c-a09f-fb893f258499"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ADENDA DE RENOVACIÓN ANUAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="45" width="442" height="73" uuid="5c73d3b5-412f-4c1e-bca0-5b9c9fb37794"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ADENDA AL CONVENIO DE AFILIACIÓN AL PROGRAMA DE PREVISIÓN FUNERARIA FIRMADO EL ________________ QUE CELEBRAN POR UNA PARTE, EL FIDEICOMISO DE BENEFICIOS SOCIALES No. 4600-6 TAMBIÉN DENOMINADO COMO FIBESO, A QUIÉN EN LO SUCESIVO SE LE DENOMINARÁ “EL FIDEICOMISO” Y POR LA OTRA (nombre de la persona) A QUIEN EN LO SUCESIVO SE LE DENOMINARÁ “EL AFILIADO”, AL TENOR DE LAS SIGUIENTES CLÁUSULAS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="118" width="442" height="53" uuid="b7e077dc-cde8-4a8a-899e-5f54f1c0bbba"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1.- De conformidad con el convenio de Afiliación al Programa de Previsión Funeraria firmado el ___________, en la ciudad de _____________, se conviene a la continuidad de la afiliación a través de pago anual efectuado con antelación a la firma de la presente adenda. ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="106" y="185" width="330" height="20" uuid="24625438-442f-4771-a014-c23de9f24535"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="3" y="245" width="103" height="71" uuid="12476786-76ed-491a-8501-85b23ab76fc0"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="3" y="205" width="103" height="20" uuid="5e129282-ebb0-4160-a444-8321c9b484ce"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="3" y="336" width="103" height="68" uuid="cb58a91b-b792-41eb-965c-fac255cf0211"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="106" y="245" width="330" height="71" uuid="ca65042f-1195-4419-a965-eabbadc5d6ca"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="3" y="205" width="103" height="20" uuid="017de366-6738-4ad1-afb4-1889c074b6f5"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cuota ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="106" y="205" width="330" height="20" uuid="905a4a28-38f3-49e0-ab09-795e5ee12123"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="3" y="336" width="103" height="68" uuid="9c2b613d-1e58-4bb4-b4cb-9f21e4d8a17e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Clasificación de Programa de Previsión Funeraria]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="316" width="103" height="20" uuid="bea84ed4-4689-4474-b7db-940d2cc1ef25"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de pago]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="106" y="336" width="330" height="68" uuid="4573c7be-4dc4-4614-8eb3-878cde61002c"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="3" y="245" width="103" height="71" uuid="2cc5c133-63b3-4d55-abab-84526baed539"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Beneficiarios]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="3" y="185" width="103" height="20" uuid="f16c1f51-75e6-49b3-8040-c7be2d9e2d80"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="3" y="185" width="103" height="20" uuid="50df4368-2df2-49cd-a603-25362c66712f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Datos Bancarios]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="106" y="225" width="330" height="20" uuid="bce640fb-84da-432d-a2fe-6dfcea0aff38"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="3" y="225" width="103" height="20" uuid="38522ca2-c5d4-4fd3-9163-0ca4b57b37d9"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="3" y="225" width="103" height="20" uuid="9b50cc35-2b32-4a51-a519-0a5bbf2362e2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Titular ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="416" width="442" height="45" uuid="ccac9b84-21c1-4803-a2a8-3ea5f398c8ac"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[2.- Una vez establecido, que el pago fue efectuado en tiempo y forma, esta adenda fungirá como el comprobante más amplio para tener los derechos y obligaciones que se describen en el convenio anteriormente citado. ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="42" y="474" width="179" height="101" uuid="ec97731e-3e1b-4140-a0a4-fbd02403544e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="221" y="474" width="179" height="101" uuid="46026729-77d2-416d-b0fb-c470c807b833"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="42" y="474" width="179" height="100" uuid="78877c99-95fd-48f8-8ba4-3baeeefe3d7a"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="Calibri" size="11" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[
+
+
+
+____<style isUnderline='true'>Firma digital/firma folio</style>____
+Dra. Cristinne Leo Martel
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="221" y="474" width="179" height="101" uuid="fdbfe624-bf66-41cb-8e9b-6eed6713fd30"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[
+
+
+
+________________________
+AFILIADO
+]]></text>
+			</staticText>
+		</band>
+		<band height="587">
+			<staticText>
+				<reportElement x="0" y="0" width="442" height="20" uuid="ceae28f1-88dc-4104-b7d1-446caa69b3c0"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[“ANEXO C”]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="442" height="33" uuid="7089616f-aa23-435c-9b52-83d5c9a950ad"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CUENTAS DISPONIBLES PARA EFECTUAR SU PAGO PUNTUAL DE RENOVACIÓN DE FOLIO DE PREVISIÓN FUNERARIA.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="546" width="440" height="41" uuid="c0f08a8f-bb6d-4871-8dc3-57355f4988df"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Favor de corroborar que NO se han modificado estas cuentas, ANTES de hacer su depósito o transferencia, llamando al velatorio de su preferencia o al Call Center del IMSS: 800 6 23 23 23]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="65" width="442" height="465" uuid="e0716acf-4537-4917-bc90-c87f374340c3"/>
+				<imageExpression><![CDATA["\\\\bancos.png"]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+</jasperReport>
